@@ -37,10 +37,10 @@ object AdvancedPatternMatching {
   val n: Int = 55
 
   val mathProperty = n match {
-    case Even() => "Even"
-    case Odd() => "Odd"
+    case Even()         => "Even"
+    case Odd()          => "Odd"
     case SingleDigits() => "Single digit"
-    case _ => "No special property"
+    case _              => "No special property"
   }
 
   infix case class Or[A, B](a: A, b: B)
@@ -54,12 +54,12 @@ object AdvancedPatternMatching {
   val aList = List(1, 2, 3)
   val listPM = aList match {
     case 1 :: rest => "Starts with 1"
-    case _ => "Doesnt start with 1"
+    case _         => "Doesnt start with 1"
   }
 
   val vararg = aList match {
     case List(1, _*) => "List starting with 1"
-    case _ => "Some other list"
+    case _           => "Some other list"
   }
 
   abstract class MyList[A] {
@@ -82,13 +82,13 @@ object AdvancedPatternMatching {
 
   val varargCustom = myList match {
     case MyList(1, _*) => "List starting with 1"
-    case _ => "some other list"
+    case _             => "some other list"
   }
 
   abstract class Wrapper[T] {
     def isEmpty: Boolean
 
-    def get: T //needs to be present for pattern matching, checked via reflection
+    def get: T // needs to be present for pattern matching, checked via reflection
   }
 
   object PersonWrapper {
@@ -98,7 +98,7 @@ object AdvancedPatternMatching {
     }
   }
 
-  val weirdPersonPM = ivan match{
+  val weirdPersonPM = ivan match {
     case PersonWrapper(name) => s"The name is $name"
   }
 

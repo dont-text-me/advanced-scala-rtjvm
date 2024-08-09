@@ -2,12 +2,10 @@ package com.ivanb.practice
 
 import scala.annotation.targetName
 
-
 abstract class FSet[A] extends (A => Boolean) {
   def contains(elem: A): Boolean
 
   def apply(elem: A): Boolean = contains(elem)
-
 
   infix def +(elem: A): FSet[A]
 
@@ -40,13 +38,17 @@ class PBSet[A](property: A => Boolean) extends FSet[A] {
 
   override infix def +(elem: A): FSet[A] = new PBSet[A](x => property(x) || x == elem)
 
-  override infix def ++(anotherSet: FSet[A]): FSet[A] = new PBSet[A](elem => property(elem) || anotherSet(elem))
+  override infix def ++(anotherSet: FSet[A]): FSet[A] = new PBSet[A](elem =>
+    property(elem) || anotherSet(elem)
+  )
 
   override def map[B](f: A => B): FSet[B] = failWithMessage
 
   override def flatMap[B](f: A => FSet[B]): FSet[B] = failWithMessage
 
-  override def filter(predicate: A => Boolean): FSet[A] = new PBSet[A](elem => property(elem) && predicate(elem))
+  override def filter(predicate: A => Boolean): FSet[A] = new PBSet[A](elem =>
+    property(elem) && predicate(elem)
+  )
 
   override def foreach(f: A => Unit): Unit = failWithMessage
 
@@ -65,7 +67,6 @@ class PBSet[A](property: A => Boolean) extends FSet[A] {
 
   private def failWithMessage = throw new RuntimeException("Not sure if the set is iterable")
 }
-
 
 case class Empty[A]() extends FSet[A] {
   override def filter(predicate: A => Boolean): FSet[A] = this
@@ -106,8 +107,8 @@ case class Cons[A](head: A, tail: FSet[A]) extends FSet[A] {
 
   override def flatMap[B](f: A => FSet[B]): FSet[B] = f(head) ++ tail.flatMap(f)
 
-  override def filter(predicate: A => Boolean): FSet[A] = if predicate(head) then tail.filter(predicate) + head else tail.filter(predicate)
-
+  override def filter(predicate: A => Boolean): FSet[A] =
+    if predicate(head) then tail.filter(predicate) + head else tail.filter(predicate)
 
   override def foreach(f: A => Unit): Unit =
     f(head)

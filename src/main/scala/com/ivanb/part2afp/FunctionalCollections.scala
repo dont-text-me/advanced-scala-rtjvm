@@ -1,7 +1,7 @@
 package com.ivanb.part2afp
 
 object FunctionalCollections {
-  val aSet : Set[String] = Set("I", "Love", "Scala")
+  val aSet: Set[String] = Set("I", "Love", "Scala")
   val setContainsScala = aSet("Scala")
 
   // sequences are functions of type PartialFunction[Int, A] index => element

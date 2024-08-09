@@ -8,7 +8,7 @@ object DarkSugars {
   def singleArgMethod(arg: Int): Int = arg + 1
 
   val aMethodCall = singleArgMethod {
-    //some code
+    // some code
     42
   }
 
@@ -35,7 +35,6 @@ object DarkSugars {
   })
 
   val anotherThread = new Thread(() => print("Also printing from another thread"))
-
 
   // methods ending in ':'
 
@@ -67,8 +66,8 @@ object DarkSugars {
   import scala.annotation.targetName
   @targetName("Arrow") infix class -->[A, B]
 
-  val compositeType: -->[Int, String] = new-->[Int, String]
-  val alsoCompositeType: Int --> String = new-->[Int, String]
+  val compositeType: -->[Int, String] = new -->[Int, String]
+  val alsoCompositeType: Int --> String = new -->[Int, String]
 
   val myArray = Array(1, 2, 3, 4)
   myArray.update(2, 45)
@@ -76,9 +75,9 @@ object DarkSugars {
 
   // mutable fields
 
-  class Mutable{
+  class Mutable {
     private var internalMember: Int = 0
-    def member: Int = internalMember //getter
+    def member: Int = internalMember // getter
     def member_=(value: Int): Unit = internalMember = value // setter
   }
 
@@ -91,8 +90,6 @@ object DarkSugars {
   val anotherList = List(1, 2, 3, 4)
   val callWithDynamicArgs = methodWithVarargs(anotherList*)
 
-  def main(args: Array[String]): Unit = {
-
-  }
+  def main(args: Array[String]): Unit = {}
 
 }
