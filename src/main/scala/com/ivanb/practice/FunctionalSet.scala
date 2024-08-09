@@ -59,7 +59,7 @@ class PBSet[A](property: A => Boolean) extends FSet[A] {
   @targetName("intersect")
   override infix def &(anotherSet: FSet[A]): FSet[A] = filter(anotherSet)
 
-  override def toList: List[A] = ???
+  override def toList: List[A] = failWithMessage
 
   override def unary_! : FSet[A] = new PBSet[A](x => !property(x))
 
