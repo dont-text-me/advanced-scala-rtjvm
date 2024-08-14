@@ -158,15 +158,14 @@ object Futures {
   def inSequence[A, B](first: Future[A], second: Future[B]): Future[B] = first.flatMap(_ => second)
 
   /** Return the first future to complete */
-  def first[A](f1: Future[A], f2: Future[A]): Future[A] = {
+  def first[A](f1: Future[A], f2: Future[A]): Future[A] =
     val promise = Promise[A]()
     f1.onComplete(res => promise.tryComplete(res))
     f2.onComplete(res => promise.tryComplete(res))
     promise.future
-  }
 
   /** Return the last future to complete */
-  def last[A](f1: Future[A], f2: Future[A]): Future[A] = {
+  def last[A](f1: Future[A], f2: Future[A]): Future[A] =
     val bothPromise = Promise[A]()
     val lastPromise = Promise[A]()
 
@@ -177,9 +176,8 @@ object Futures {
       if !bothPromise.tryComplete(res) then lastPromise.complete(res)
     })
     lastPromise.future
-  }
 
-  def retryUntil[A](action: () => Future[A], predicate: A => Boolean): Future[A] = {
+  def retryUntil[A](action: () => Future[A], predicate: A => Boolean): Future[A] =
     // my solution
     action().flatMap {
       case x if predicate(x) => Promise[A].success(x).future
@@ -187,7 +185,6 @@ object Futures {
         println(s"result $x did not pass predicate, retrying...")
         retryUntil(action, predicate)
     }
-  }
 
   def retryUntil2[A](
       action: () => Future[A],
