@@ -66,8 +66,11 @@ object Givens {
   val myCombinator: Combinator[Int] = (x: Int, y: Int) => x * y
   val listProduct = combineAll(List(1, 2, 3, 4))(using myCombinator)
 
-  /** Exercises: 1 - create a given for ordering Option[A] if you can order A 2 - create a summoning
-    * method that fetches the given value of your particular
+  /** Exercises:
+    *
+    *   - 1 - create a given for ordering Option[A] if you can order A
+    *
+    *   - 2 - create a summoning method that fetches the given value of your particular
     */
 
   def fetchGiven[A](using aGiven: A): A = aGiven // implemented as summon in the stdlib
