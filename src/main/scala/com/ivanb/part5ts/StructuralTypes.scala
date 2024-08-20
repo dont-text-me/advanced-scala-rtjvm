@@ -1,5 +1,5 @@
 package com.ivanb.part5ts
-
+import scala.reflect.Selectable.reflectiveSelectable
 object StructuralTypes {
   // compile-time duck typing
   type SoundMaker = { // structural type
